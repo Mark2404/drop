@@ -42,7 +42,7 @@ todoContainer.addEventListener('dragover', (e) => {
 
 todoContainer.addEventListener('drop', (e) => {
     e.preventDefault();
-    const id = e.dataTransfer.getData('text/plain');
+
     const draggableElement = document.getElementById(id);
 
     if (draggableElement) {
@@ -67,7 +67,7 @@ doneContainer.addEventListener('dragover', (e) => {
 
 doneContainer.addEventListener('drop', (e) => {
     e.preventDefault();
-    const id = e.dataTransfer.getData('text/plain');
+
     const draggableElement = document.getElementById(id);
 
     if (draggableElement) {
@@ -82,7 +82,7 @@ todoContainer.addEventListener('dragover', (e) => {
 
 todoContainer.addEventListener('drop', (e) => {
     e.preventDefault();
-    const id = e.dataTransfer.getData('text/plain');
+
     const draggableElement = document.getElementById(id);
     if (draggableElement) {
         todoContainer.appendChild(draggableElement);
