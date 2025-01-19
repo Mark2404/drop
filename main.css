@@ -80,6 +80,20 @@ form {
   transition: all 0.2s ease-in-out;
 }
 
+.edit-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background-color: rgb(255, 0, 0);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+.edit-button:hover {
+  border: 1px solid rgb(34, 255, 0);
+  transition: all 0.2s ease-in-out;
+}
+
 .todo {
   margin-bottom: 10px;
   padding: 0 16px;

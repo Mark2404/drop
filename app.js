@@ -1,14 +1,19 @@
 
-
 const TodoForm = document.querySelector("form");
 const TodoInput = document.getElementById("todo-input");
 const TodoListUl = document.getElementById("todo-list");
 let allTodos = getTodos();
+let editingIndex = null;
+
 updateTodoList();
 
 TodoForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    addTodo();
+    if (editingIndex !== null) {
+        updateTodo();
+    } else {
+        addTodo();
+    }
 });
 
 function addTodo() {
@@ -23,6 +28,18 @@ function addTodo() {
         updateTodoList();
         saveTodos();
         TodoInput.value = "";
+    }
+}
+
+function updateTodo() {
+    const todoText = TodoInput.value.trim();
+
+    if (todoText.length > 0) {
+        allTodos[editingIndex].text = todoText;
+        updateTodoList();
+        saveTodos();
+        TodoInput.value = "";
+        editingIndex = null;
     }
 }
 
@@ -49,22 +66,36 @@ function createTodoItem(todo, todoIndex) {
         <label for="${todoId}" class="todo-text">
             ${todo.text}
         </label>
+        <button class="edit-button">Edit</button>
         <button class="delete-button">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                <path d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z" />
-            </svg>
-        </button>
+         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#e8eaed">
+                        <path
+                            d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z" />
+                    </svg></button>
     `;
     const deleteButton = todoli.querySelector(".delete-button");
     deleteButton.addEventListener("click", function () {
         deleteTodoItem(todoIndex);
     });
+
+    const editButton = todoli.querySelector(".edit-button");
+    editButton.addEventListener("click", function () {
+        enterEditMode(todoIndex);
+    });
+
     const checkbox = todoli.querySelector("input");
     checkbox.addEventListener("change", function () {
         allTodos[todoIndex].completed = checkbox.checked;
         saveTodos();
     });
+
     return todoli;
+}
+
+function enterEditMode(todoIndex) {
+    TodoInput.value = allTodos[todoIndex].text;
+    editingIndex = todoIndex;
 }
 
 function deleteTodoItem(todoIndex) {
