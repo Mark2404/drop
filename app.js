@@ -1,115 +1,113 @@
+const addStudentBtn = document.getElementById("addStudentBtn");
+const addForm = document.getElementById("add-form");
+const studentModal = document.getElementById("studentModal");
+const studentModalTitle = document.querySelector(".modal-title");
+const tbody = document.querySelector(".table tbody");
+const studentModalBtn = document.querySelector(".modal-btn");
+let selectedIndex = null;
+let searchValue = "";
+let groupValue = "";
+const users = getFromLocalStorage();
+renderUsers();
 
-const TodoForm = document.querySelector("form");
-const TodoInput = document.getElementById("todo-input");
-const TodoListUl = document.getElementById("todo-list");
-let allTodos = getTodos();
-let editingIndex = null;
-
-updateTodoList();
-
-TodoForm.addEventListener("submit", function (e) {
+addForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (editingIndex !== null) {
-        updateTodo();
+    const firstName = addForm.firstName.value;
+    const lastName = addForm.lastName.value;
+
+    const hasWork = addForm.hasWork.checked;
+    if (selectedIndex !== null) {
+        users[selectedIndex] = {
+            firstName,
+            lastName,
+            hasWork,
+        };
+
+        selectedIndex = null;
     } else {
-        addTodo();
+        users.push({
+            firstName,
+            lastName,
+            hasWork,
+        });
     }
+    saveToLocalStorage();
+
+    addForm.reset();
+    bootstrap.Modal.getInstance(studentModal).hide();
+    renderUsers();
 });
 
-function addTodo() {
-    const todoText = TodoInput.value.trim();
+addStudentBtn.addEventListener("click", () => {
+    studentModalTitle.textContent = "Add student";
+    studentModalBtn.textContent = "Add";
+});
 
-    if (todoText.length > 0) {
-        const todoObject = {
-            text: todoText,
-            completed: false
-        };
-        allTodos.push(todoObject);
-        updateTodoList();
-        saveTodos();
-        TodoInput.value = "";
-    }
-}
 
-function updateTodo() {
-    const todoText = TodoInput.value.trim();
-
-    if (todoText.length > 0) {
-        allTodos[editingIndex].text = todoText;
-        updateTodoList();
-        saveTodos();
-        TodoInput.value = "";
-        editingIndex = null;
-    }
-}
-
-function updateTodoList() {
-    TodoListUl.innerHTML = "";
-    allTodos.forEach((todo, todoIndex) => {
-        const todoItem = createTodoItem(todo, todoIndex);
-        TodoListUl.appendChild(todoItem);
+function renderUsers() {
+    tbody.innerHTML = "";
+    let filteredUsers = users.filter((user) => {
+        if (user.firstName.toLowerCase().includes(searchValue.toLowerCase()) || user.lastName.toLowerCase().includes(searchValue.toLowerCase())) {
+            return true;
+        }
+    });
+    filteredUsers.forEach((user, i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${i + 1}</td>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+            <td>${user.hasWork ? "Ha" : "Yo'q"}</td>
+            <td>
+                <button class="btn btn-warning delete" data-bs-toggle="modal" data-bs-target="#studentModal" onclick="editStudent(${i})"><i class="fa-solid fa-gear"></i></button>
+                <button onclick="deleteStudent(${i})" class="btn btn-danger delete"><i class="fa-solid fa-trash"></i></button>
+            </td>
+        `;
+        tbody.appendChild(tr);
     });
 }
 
-function createTodoItem(todo, todoIndex) {
-    const todoId = `todo-${todoIndex}`;
-    const todoli = document.createElement("li");
-    todoli.className = "todo";
-    todoli.innerHTML = `
-        <input type="checkbox" id="${todoId}" ${todo.completed ? "checked" : ""}>
-        <label for="${todoId}" class="custom-checkbox">
-            <svg fill="transparent" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
-                width="24px" fill="#e8eaed">
-                <path d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
-            </svg>
-        </label>
-        <label for="${todoId}" class="todo-text">
-            ${todo.text}
-        </label>
-        <button class="edit-button">Edit</button>
-        <button class="delete-button">
-         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                        fill="#e8eaed">
-                        <path
-                            d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z" />
-                    </svg></button>
-    `;
-    const deleteButton = todoli.querySelector(".delete-button");
-    deleteButton.addEventListener("click", function () {
-        deleteTodoItem(todoIndex);
+function saveToLocalStorage() {
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+function getFromLocalStorage() {
+    const data = localStorage.getItem("users") || "[]";
+    return JSON.parse(data);
+}
+
+function deleteStudent(index) {
+    const isConfirm = confirm("Haqiqatdan o'chirmoqchimisiz?");
+    if (!isConfirm) return;
+
+
+    users.splice(index, 1);
+    saveToLocalStorage();
+    renderUsers();
+}
+
+function editStudent(index) {
+    selectedIndex = index;
+    studentModalTitle.textContent = "Edit student";
+    studentModalBtn.textContent = "Edit";
+
+    addForm.firstName.value = users[index].firstName;
+    addForm.lastName.value = users[index].lastName;
+    addForm.hasWork.checked = users[index].hasWork;
+}
+
+
+
+const headers = document.querySelectorAll('.accordion-header');
+
+headers.forEach(header => {
+    header.addEventListener('click', () => {
+        const parent = header.parentElement;
+        const content = parent.querySelector('.accordion-content');
+        if (content.style.display === 'block') {
+            content.style.display = 'none';
+        } else {
+            content.style.display = 'block';
+        }
     });
-
-    const editButton = todoli.querySelector(".edit-button");
-    editButton.addEventListener("click", function () {
-        enterEditMode(todoIndex);
-    });
-
-    const checkbox = todoli.querySelector("input");
-    checkbox.addEventListener("change", function () {
-        allTodos[todoIndex].completed = checkbox.checked;
-        saveTodos();
-    });
-
-    return todoli;
-}
-
-function enterEditMode(todoIndex) {
-    TodoInput.value = allTodos[todoIndex].text;
-    editingIndex = todoIndex;
-}
-
-function deleteTodoItem(todoIndex) {
-    allTodos = allTodos.filter((_, index) => index !== todoIndex);
-    saveTodos();
-    updateTodoList();
-}
-
-function saveTodos() {
-    const todosJSON = JSON.stringify(allTodos);
-    localStorage.setItem("todos", todosJSON);
-}
-
-function getTodos() {
-    const todos = localStorage.getItem("todos");
-    return JSON.parse(todos) || [];
-}
+});
