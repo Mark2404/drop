@@ -1,17 +1,8 @@
-const openBtn = document.getElementById("modalShow");
-const closeBtn = document.getElementById("modalClose");
-const modal = document.getElementById("modalContainer");
+const drawer = document.getElementById('drawer');
 
-
-
-openBtn.addEventListener("click", () => {
-    modal.classList.remove("hidden");
-    odal.classList.add("show");
-    alert("Modal Opened");
-});
-closeBtn.addEventListener("click", () => {
-
-    modal.classList.add("hidden");
-    odal.classList.remove("show");
-    alert("Modal Opened");
-});
+function openDrawer() {
+    drawer.style.display = 'flex';
+}
+function closeDrawer() {
+    drawer.style.display = 'none';
+}

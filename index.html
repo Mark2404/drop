@@ -3,35 +3,42 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/main.css">
-    <title>Custom Modal</title>
+    <title>carusel</title>
 </head>
 
 <body>
-    <div class="container hero-sec">
+    <section class="container">
+        <div class="slider-wrapper">
+            <div class="slider">
+                <img id="slide-1" src="./assets/cls.jpg" alt="">
+                <img id="slide-2" src="./assets/better.jpg" alt="">
+                <img id="slide-3" src="./assets/bmw.jpg" alt="">
+            </div>
+        </div>
+        <div class="slider-nav">
+            <a href="#slide-1"></a>
+            <a href="#slide-2"></a>
+            <a href="#slide-3"></a>
 
-    </div class="container hero-sec__header">
-    <a href="./clock.html"><button class="modal-btn">Clocks</button></a>
-    <button class="modal-btn" id="modalShow">Bosing</button>
-    <div>
+        </div>
+    </section>
+    <div class="container website">
+        <div id="drawer" class="drawer">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+            <button class="drawerBtn" onclick="closeDrawer()">hide</button>
+        </div>
 
-
-
-    </div>
-    </div>
-    <div class="modal-container hidden" id="modalContainer">
-        <div class="modal">
-            <h1>Modal</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, perspiciatis deleniti laborum id ut
-                dolor rem unde maxime fuga laboriosam!</p>
-
-            <button class="modal-btn" id="modalClose">Close</button>
+        <div class="content">
+            <h1>Drawer</h1>
+            <button class="drawerBtn" onclick="openDrawer()">Click to see</button>
         </div>
     </div>
-
-
 </body>
-<script src="./main.js/app.js"></script>
 
 </html>
+<script src="./main.js/app.js"></script>
