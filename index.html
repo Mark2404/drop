@@ -11,14 +11,17 @@
 <body>
 
     <div class="container">
-        <input id="usernameInput" type="text" placeholder="Enter GitHub username">
-        <button id="searchButton">Search</button>
+        <form onsubmit="searchUser(event)">
+            <input id="usernameInput" type="text" placeholder="username kiritng">
+            <button type="submit">Search</button>
+        </form>
         <div id="userInfo" class="user-info">
             <img id="avatar" alt="User avatar">
             <p id="name"></p>
         </div>
         <p id="errorMessage" class="error"></p>
     </div>
+
 
     <script src="./main.js/app.js"></script>
 </body>

@@ -1,11 +1,11 @@
 const usernameInput = document.getElementById('usernameInput');
-const searchButton = document.getElementById('searchButton');
 const userInfo = document.getElementById('userInfo');
 const errorMessage = document.getElementById('errorMessage');
 const avatar = document.getElementById('avatar');
 const name = document.getElementById('name');
 
-function searchUser() {
+function searchUser(event) {
+    event.preventDefault();
     const username = usernameInput.value.trim();
 
     userInfo.style.display = 'none';
@@ -26,7 +26,7 @@ function searchUser() {
         })
         .then(data => {
             avatar.src = data.avatar_url;
-            name.textContent = data.name;
+            name.textContent = data.name || 'ismi yoq';
             userInfo.style.display = 'block';
         })
         .catch(error => {
@@ -34,9 +34,3 @@ function searchUser() {
             errorMessage.style.display = 'block';
         });
 }
-
-searchButton.addEventListener('click', searchUser);
-
-usernameInput.addEventListener('submit', () => {
-    searchUser();
-});
