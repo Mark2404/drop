@@ -1,100 +1,60 @@
-* {
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
   padding: 20px;
-}
-
-.slider-wrapper {
-  position: relative;
-  max-width: 48rem;
-  margin: 0 auto;
-}
-
-.slider {
-  display: flex;
-  aspect-ratio: 16/9;
-  overflow-x: hidden;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
-  border-radius: 0.5rem;
-}
-.slider img {
-  flex: 1 0 100%;
-}
-
-.slider-nav {
-  display: flex;
-  -moz-column-gap: 1rem;
-       column-gap: 1rem;
-  position: absolute;
-  top: 60%;
-  left: 50%;
-}
-.slider-nav a {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: rgb(255, 0, 0);
-  opacity: 0.75;
-  transition: opacity ease 250ms;
-}
-.slider-nav a:hover {
-  opacity: 1;
-}
-
-.website {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.drawer {
-  height: 100%;
-  width: 250px;
-  background-color: #575757;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: none;
-  align-items: center;
-  flex-direction: column;
-}
-.drawer a {
-  padding: 10px 15px;
-  text-decoration: none;
-  font-size: 18px;
-  color: rgba(255, 6, 6, 0.8156862745);
-  display: block;
-  transition: 0.3s;
-  text-align: center;
-}
-.drawer a:hover {
-  background-color: #575757;
-  color: #fff;
-}
-
-.content {
-  margin-left: 250px;
-  padding: 20px;
-}
-
-.drawerBtn {
-  cursor: pointer;
-  border: none;
-  width: 100px;
-  height: 60px;
-  padding: 10px;
   border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-.drawerBtn:hover {
-  background-color: #333;
-  transition: all 0.3s ease-in-out;
-  color: white;
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.user-info {
+  margin-top: 20px;
+  text-align: center;
+  display: none;
+}
+
+.user-info img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.error {
+  margin-top: 10px;
+  color: red;
+  text-align: center;
+  display: none;
 }/*# sourceMappingURL=main.css.map */

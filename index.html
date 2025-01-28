@@ -5,40 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/main.css">
-    <title>carusel</title>
+    <title>Api</title>
 </head>
 
 <body>
-    <section class="container">
-        <div class="slider-wrapper">
-            <div class="slider">
-                <img id="slide-1" src="./assets/cls.jpg" alt="">
-                <img id="slide-2" src="./assets/better.jpg" alt="">
-                <img id="slide-3" src="./assets/bmw.jpg" alt="">
-            </div>
-        </div>
-        <div class="slider-nav">
-            <a href="#slide-1"></a>
-            <a href="#slide-2"></a>
-            <a href="#slide-3"></a>
 
+    <div class="container">
+        <input id="usernameInput" type="text" placeholder="Enter GitHub username">
+        <button id="searchButton">Search</button>
+        <div id="userInfo" class="user-info">
+            <img id="avatar" alt="User avatar">
+            <p id="name"></p>
         </div>
-    </section>
-    <div class="container website">
-        <div id="drawer" class="drawer">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Contact</a>
-            <button class="drawerBtn" onclick="closeDrawer()">hide</button>
-        </div>
-
-        <div class="content">
-            <h1>Drawer</h1>
-            <button class="drawerBtn" onclick="openDrawer()">Click to see</button>
-        </div>
+        <p id="errorMessage" class="error"></p>
     </div>
+
+    <script src="./main.js/app.js"></script>
 </body>
 
 </html>
-<script src="./main.js/app.js"></script>
