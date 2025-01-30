@@ -4,25 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/main.css">
-    <title>Api</title>
+    <title> CRUD</title>
+    <link rel="stylesheet" href="/style/main.css">
 </head>
 
 <body>
-
     <div class="container">
-        <form onsubmit="searchUser(event)">
-            <input id="usernameInput" type="text" placeholder="username kiritng">
-            <button type="submit">Search</button>
-        </form>
-        <div id="userInfo" class="user-info">
-            <img id="avatar" alt="User avatar">
-            <p id="name"></p>
+        <h1>List</h1>
+        <div class="input-section">
+            <input type="text" id="name" placeholder="Ism">
+            <input type="text" id="surname" placeholder="Familya">
+            <input type="number" id="age" placeholder="Yosh">
+            <button onclick="addUser()">Qo'shish</button>
         </div>
-        <p id="errorMessage" class="error"></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ism</th>
+                    <th>Familya</th>
+                    <th>Yosh</th>
+                    <th>Amallar</th>
+                </tr>
+            </thead>
+            <tbody id="userTable">
+            </tbody>
+        </table>
     </div>
-
-
     <script src="./main.js/app.js"></script>
 </body>
 
