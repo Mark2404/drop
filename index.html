@@ -4,32 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> CRUD</title>
+    <title> country</title>
     <link rel="stylesheet" href="/style/main.css">
 </head>
 
 <body>
+
+
     <div class="container">
-        <h1>List</h1>
-        <div class="input-section">
-            <input type="text" id="name" placeholder="Ism">
-            <input type="text" id="surname" placeholder="Familya">
-            <input type="number" id="age" placeholder="Yosh">
-            <button onclick="addUser()">Qo'shish</button>
+        <div class="title">
+            <h1>Where in the world?</h1>
+            <button id="mode">
+                <img src="./assets/moon.svg" alt="">
+                <p>Dark Mode</p>
+            </button>
+
+
+
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Ism</th>
-                    <th>Familya</th>
-                    <th>Yosh</th>
-                    <th>Amallar</th>
-                </tr>
-            </thead>
-            <tbody id="userTable">
-            </tbody>
-        </table>
+        <div class="input_section">
+            <div class="input">
+                <label for="search"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                        width="24px" fill="#e8eaed">
+                        <path
+                            d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+                    </svg></label>
+                <input id="search" type="text" placeholder="Search for a country...">
+            </div>
+            <div id="filter">
+                <p>Filter by Region</p>
+                <select id="region">
+                    <option value="all">All</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Americas">America</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Europe">Europe</option>
+                    <option value="Oceania">Oceania</option>
+                </select>
+            </div>
+        </div>
+        <div class="card_section">
+            <div id="countries">
+
+
+            </div>
+
+        </div>
+
+
+
+
     </div>
+
+
+
     <script src="./main.js/app.js"></script>
 </body>
 

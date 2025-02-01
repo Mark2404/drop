@@ -1,76 +1,72 @@
+const div = document.getElementById("countries");
+const searchInput = document.getElementById("search");
+const selectedRegion = document.getElementById("region");
+const mode = document.getElementById("mode");
+const body = document.body;
+let countries = [];
 
-async function fetchUsers() {
-    const response = await fetch('http://localhost:3001/users');
-    const data = await response.json();
-    return data;
-}
-
-
-async function saveUsers(users) {
-    await fetch('http://localhost:3001/users', {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(users)
-    });
-}
-async function loadUsers() {
-    const users = await fetchUsers();
-    updateTable(users);
-}
-
-
-async function addUser() {
-    const name = document.getElementById('name').value;
-    const surname = document.getElementById('surname').value;
-    const age = document.getElementById('age').value;
-    if (name && surname && age) {
-        const users = await fetchUsers();
-        const user = { id, name, surname, age };
-        users.push(user);
-        await fetch('http://localhost:3001/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        });
-
-        updateTable(users);
-        clearInputs();
+async function fetchCountries() {
+    try {
+        const response = await fetch("https://restcountries.com/v3.1/all");
+        countries = await response.json();
+        displayCountries(countries);
+    } catch (error) {
+        console.error("Ma'lumot olishda xatolik:", error);
     }
 }
-async function deleteUser(id) {
-    let users = await fetchUsers();
-    users = users.filter(user => user.id !== id);
-    await fetch(`http://localhost:3001/users/${id}`, {
-        method: 'DELETE',
+
+selectedRegion.addEventListener("change", (event) => {
+    if (event.target.value === "all") {
+        displayCountries(countries);
+        return;
+    }
+    const region = event.target.value;
+    const filteredCountries = countries.filter((country) => country.region === region);
+    displayCountries(filteredCountries);
+});
+
+function displayCountries(countriesList) {
+    div.innerHTML = "";
+    countriesList.forEach((country) => {
+        const countryDiv = document.createElement("div");
+        countryDiv.classList.add("card");
+        countryDiv.innerHTML = `
+            <img src="${country.flags.png}" alt="${country.name.common}">
+            <h2>${country.name.common}</h2>
+            <p>Population: ${country.population}</p>
+            <p>Region: ${country.region}</p>
+            <p>Capital: ${country.capital?.[0] || "No Capital"}</p>
+        `;
+        div.appendChild(countryDiv);
     });
-
-    updateTable(users);
-}
-function updateTable(users) {
-    const table = document.getElementById('userTable');
-    table.innerHTML = '';
-    users.forEach(user => {
-        const row = `<tr>
-            <td>${user.name}</td>
-            <td>${user.surname}</td>
-            <td>${user.age}</td>
-            <td>
-                <button >Edit</button>
-                <button onclick="deleteUser('${user.id}')">Delete</button>
-            </td>
-        </tr>`;
-        table.innerHTML += row;
-    });
 }
 
-function clearInputs() {
-    document.getElementById('name').value = '';
-    document.getElementById('surname').value = '';
-    document.getElementById('age').value = '';
+searchInput.addEventListener("input", (event) => {
+    const searchTerm = event.target.value.toLowerCase();
+    const filteredCountries = countries.filter((country) =>
+        country.name.common.toLowerCase().includes(searchTerm)
+    );
+    displayCountries(filteredCountries);
+});
+
+fetchCountries();
+
+
+
+
+function applyTheme() {
+    if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark_mode");
+        mode.textContent = "Light Mode";
+    } else {
+        body.classList.remove("dark_mode");
+        mode.textContent = "Dark Mode";
+    }
 }
 
-window.onload = loadUsers;
+mode.addEventListener("click", () => {
+    localStorage.setItem("theme", body.classList.contains("dark_mode") ? "light" : "dark");
+    applyTheme();
+});
+
+applyTheme();
