@@ -43,6 +43,10 @@
   margin-left: 10px;
 }
 
+#mode {
+  background-color: transparent;
+}
+
 .input_section {
   display: flex;
   align-items: center;
@@ -78,24 +82,21 @@
 
 #countries {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  /* Ustunlar responsiv */
-  grid-auto-rows: auto;
-  /* Qatorlar avtomatik moslashadi */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-row: auto;
   gap: 20px;
-  margin-top: 40px;
 }
 
-#countries {
+.card_section #countries {
   border-radius: 5px;
   width: 264px;
   height: 336px;
 }
-#countries img {
+.card_section #countries img {
   width: 264px;
   height: 160px;
 }
-#countries h2 {
+.card_section #countries h2 {
   font-family: var(--font-family);
   font-weight: 800;
   font-size: 18px;
@@ -105,7 +106,7 @@
   margin-top: 20px;
   margin-bottom: 16px;
 }
-#countries P {
+.card_section #countries P {
   font-family: var(--font-family);
   font-weight: 600;
   font-size: 14px;
@@ -113,4 +114,63 @@
   margin-left: 20px;
   margin-bottom: 10px;
   color: #111517;
+}
+
+.dark_mode #mode {
+  background-color: transparent;
+  color: #FAFAFA;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.dark_mode .card h2,
+.dark_mode .card p {
+  color: #FAFAFA;
+}
+
+.dark_mode .card {
+  background-color: #2B3844;
+  color: #FAFAFA;
+  border-radius: 5px;
+}
+
+.dark_mode #filter p {
+  color: #FAFAFA;
+}
+
+.dark_mode .input_section input::-moz-placeholder {
+  color: #FAFAFA;
+}
+
+.dark_mode .input_section input::placeholder {
+  color: #FAFAFA;
+}
+
+.dark_mode .input_section input {
+  background-color: #2B3844;
+  color: #FAFAFA;
+  border: 1px solid #FAFAFA;
+}
+
+.dark_mode .title h1,
+.dark_mode .title button p {
+  color: #FAFAFA;
+}
+
+@media (max-width: 768px) {
+  .input_section {
+    flex-direction: column;
+    align-items: center;
+  }
+  .input_section .input input {
+    width: 90%;
+  }
+  #countries {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card {
+    width: 90%;
+  }
 }/*# sourceMappingURL=main.css.map */

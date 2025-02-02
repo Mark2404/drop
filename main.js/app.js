@@ -57,10 +57,10 @@ fetchCountries();
 function applyTheme() {
     if (localStorage.getItem("theme") === "dark") {
         body.classList.add("dark_mode");
-        mode.textContent = "Light Mode";
+        mode.textContent = "☀️ Light Mode";
     } else {
         body.classList.remove("dark_mode");
-        mode.textContent = "Dark Mode";
+        mode.textContent = "🌙 Dark Mode";
     }
 }
 
